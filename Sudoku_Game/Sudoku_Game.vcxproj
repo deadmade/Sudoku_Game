@@ -137,7 +137,7 @@
     <ClCompile Include="CheckSudoku.c" />
     <ClCompile Include="GetInput.c" />
     <ClCompile Include="Print.c" />
-    <ClCompile Include="GameLogic.c" />
+    <ClCompile Include="Convert.c" />
     <ClCompile Include="Generate.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>

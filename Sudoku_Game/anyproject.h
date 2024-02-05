@@ -28,3 +28,5 @@ void RemoveNumbersSudoku(int sudoku[sudokuWidth][sudokuLength], int amount,
     int fieldsRemoved[sudokuWidth][sudokuLength]);
 void printSudoku(int sudoku[sudokuWidth][sudokuWidth], char* namePlayer,
     int fieldsRemoved[sudokuWidth][sudokuLength]);
+int ConvertLetterToNumber(char letter);
+int ConvertCounter(int counter, int direction);

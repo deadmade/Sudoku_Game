@@ -12,33 +12,7 @@ struct PlayerMove
 	int number;
 };
 
-//Konvertierung von Buchstaben zu Zahlen
-int ConvertLetterToNumber(char letter)
-{
-	switch (toupper(letter))
-	{
-	case 'A':
-		return 0;
-	case 'B':
-		return 1;
-	case 'C':
-		return 2;
-	case 'D':
-		return 3;
-	case 'E':
-		return 4;
-	case 'F':
-		return 5;
-	case 'G':
-		return 6;
-	case 'H':
-		return 7;
-	case 'I':
-		return 8;
-	default:
-		return -1;
-	}
-}
+
 
 //Ausgabe der Regeln eines Sudokus
 void PrintRules()
@@ -46,7 +20,7 @@ void PrintRules()
 	printf("Willkommen zum Kuchtastsichen Sudoku \n");
 	printf("Die Spielregeln sind wie folgt: \n");
 	printf("In jeder Zeile, Spalte und 3x3 darf nur einmal die Zahlen 1-9 vorkommen\n");
-	printf("Wie ist dein Vorname:");
+	printf("Wie lautet dein Vorname:");
 }
 
 //Initial Methode um zu Überprüfen ob der Spieler gewonnen hat
@@ -72,7 +46,7 @@ void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int f
 	PrintRules();
 	GetSurname(namePlayer);
 	numbersInvisible = GetDifficulty();
-	while (numbersInvisible >= 36 || numbersInvisible <= 17)
+	while (numbersInvisible > 36 || numbersInvisible < 17)
 	{
 		numbersInvisible = GetDifficulty();
 	}
@@ -92,6 +66,7 @@ int main()
 	char namePlayer[50];
 	//Entscheidet, wann das Spiel beendet wird
 	int cancel = 0;
+	int counter = 0;
 
 	PrepeareGame(sudokuPlayer, namePlayer, fieldsRemoved, sudokuSolved);
 
@@ -126,6 +101,8 @@ int main()
 		}
 		//Konsole clearen. Geht nur unter Windows
 		system("cls");
+
+		ConvertCounter(counter, 1);
 	}
 	return 0;
 }
