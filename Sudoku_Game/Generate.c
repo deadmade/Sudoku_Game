@@ -6,8 +6,8 @@
 //Eine Zahl vom sudoku zufällig entfernen
 void RemoveNumberSudoku(int sudoku[sudokuWidth][sudokuLength], int fieldsRemoved[sudokuWidth][sudokuLength])
 {
-	int randomNumberWidth = rand() % 9;
-	int randomNumberLength = rand() % 9;
+	int randomNumberWidth = rand() % arrayLength;
+	int randomNumberLength = rand() % arrayLength;
 
 	if (sudoku[randomNumberWidth][randomNumberLength] != 0)
 	{
@@ -30,7 +30,7 @@ void RemoveNumbersSudoku(int sudoku[sudokuWidth][sudokuLength], int amount,
 	}
 }
 
-//Ganze Zeile im Sudoku löschen
+//Ganze Zeile im Sudoku löschen(durch 0 ersetzen)
 void deleteLine(int sudoku[sudokuWidth][sudokuLength], int line)
 {
 	for (int k = 0; k < sudokuWidth; k++)
@@ -49,11 +49,12 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 		int fail = 0;
 		for (int j = 0; j < sudokuLength; j++)
 		{
+			int generated[9] = { 0 };
 			int check = 0;
 			int count = 0;
 			while (check == 0)
 			{				
-				if (count >= 100 && fail == 5 && i != 0)
+				if (count>=100 && fail == 5 && i != 0)
 				{
 					check = 1;
 					deleteLine(sudoku, i);
@@ -71,11 +72,17 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 					fail = fail + 1;
 					deleteLine(sudoku, i);
 				}
-				int randomNumber = rand() % 9 + 1;
-				sudoku[i][j] = randomNumber;
-				check = CheckSudoku(sudoku);
-				count = count + 1;
+				else
+				{
+					int randomNumber = rand() % 9 + 1;
+									
+					sudoku[i][j] = randomNumber;
+					check = CheckSudoku(sudoku);
+					count = count + 1;
+				}
+				
 			}
 		}
 	}
 }
+

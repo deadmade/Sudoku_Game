@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include "anyproject.h"
 
 #define extern "C";
@@ -11,8 +10,6 @@ struct PlayerMove
 	int vertical;
 	int number;
 };
-
-
 
 //Ausgabe der Regeln eines Sudokus
 void PrintRules()
@@ -98,11 +95,16 @@ int main()
 		else if (fieldsRemoved[horisontal-1][verticalNumber] == 1)
 		{
 			sudokuPlayer[(horisontal - 1)][verticalNumber] = number;
+
+			counter = ConvertCounter(counter, 1);
+
+			struct PlayerMove move = { horisontal, verticalNumber, number };
+			playerMoves[counter] = move;
 		}
 		//Konsole clearen. Geht nur unter Windows
 		system("cls");
 
-		ConvertCounter(counter, 1);
+		
 	}
 	return 0;
 }

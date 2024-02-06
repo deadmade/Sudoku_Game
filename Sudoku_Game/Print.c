@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "anyproject.h"
 
 //Ändert die Konsolenschriftfarbe zu Blau
