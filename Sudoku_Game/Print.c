@@ -27,7 +27,7 @@ void printRed()
 
 
 //Gibt das Sudoku aus
-void printSudoku(int sudoku[sudokuWidth][sudokuWidth], char* namePlayer, int fieldsRemoved[sudokuWidth][sudokuLength])
+void printSudoku(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fieldsRemoved[sudokuWidth][sudokuLength])
 {
 	printf("Willkommen %s  \n", namePlayer);
 
@@ -64,7 +64,7 @@ void printSudoku(int sudoku[sudokuWidth][sudokuWidth], char* namePlayer, int fie
 			//Noch leeres Feld
 			else
 			{
-				printf("  ");
+				printf("0 ");
 			}
 
 			if ((j + 1) % 3 == 0)

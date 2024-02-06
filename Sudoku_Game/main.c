@@ -47,7 +47,7 @@ void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int f
 	{
 		numbersInvisible = GetDifficulty();
 	}
-	RemoveNumbersSudoku(sudoku, numbersInvisible, fieldsRemoved);
+	//RemoveNumbersSudoku(sudoku, numbersInvisible, fieldsRemoved);
 }
 
 int main()
