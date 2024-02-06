@@ -49,12 +49,13 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 		int fail = 0;
 		for (int j = 0; j < sudokuLength; j++)
 		{
-			
+			int generated[9] = { 0 };
 			int check = 0;
 			int count = 0;
+			int counter = 0;
 			while (check == 0)
-			{				
-				if (count>=100 && fail == 5 && i != 0)
+			{
+				if (count >= 100 && fail == 5 && i != 0)
 				{
 					check = 1;
 					deleteLine(sudoku, i);
@@ -72,15 +73,13 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 					fail = fail + 1;
 					deleteLine(sudoku, i);
 				}
-				
-				
-					int randomNumber = rand() % 9 + 1;
-									
-					sudoku[i][j] = randomNumber;
-					check = CheckSudoku(sudoku);
-					count = count + 1;
-				
-				
+
+				int randomNumber = rand() % 9 + 1;					
+				sudoku[i][j] = randomNumber;
+				check = CheckSudoku(sudoku);
+				count = count + 1;
+
+
 			}
 		}
 	}
