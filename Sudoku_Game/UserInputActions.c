@@ -15,40 +15,46 @@ int CheckWinner(int sudoku[sudokuWidth][sudokuLength])
 }
 
 //Macht Speziall Zeig wenn Koordinatne 0 0 eingegeben wird
-int CheckNumber(int sudokuPlayer[sudokuWidth][sudokuLength], int number, int sudokuSolved[sudokuLength][sudokuWidth])
+int CheckNumber(int sudokuPlayer[sudokuWidth][sudokuLength], int number, int sudokuSolved[sudokuLength][sudokuWidth], int* counter,
+	struct PlayerMove playerMoves[arrayLength], int fieldsRemoved[sudokuWidth][sudokuLength])
 {
-	int fieldsRemoved[sudokuWidth][sudokuLength] = { 0 };
+	
 
 	if (number == 0)
 	{
 		return CheckWinner(sudokuPlayer);
 	}
-	else if (number == 1)
+	if (number == 1)
 	{
-		printSudoku(sudokuSolved, "du Cheater", fieldsRemoved);
+		//Benötigt um die Lösung zu zeigen. Sonst sehr komsich
+		int nothing[sudokuWidth][sudokuLength] = { 0 };
+		printSudoku(sudokuSolved, "du Cheater", nothing );
 		return 2;
 	}
-	else if (number == 2)
-	{		
+	if (number == 2)
+	{
 		return 0;
 	}
-	else if (number == 3)
+	if (number == 3)
 	{
 		printf("Bye Bye du Pisser");
 		return 1;
 	}
-	else if (number == 4)
+	if (number == 4)
 	{
-		//noch machen
+		*counter = ConvertCounter(*counter, 0);
+		if (fieldsRemoved[playerMoves[*counter].horizontalCoordinate][playerMoves[*counter].verticalCoordinate] == 1)
+		{
+			sudokuPlayer[playerMoves[*counter].horizontalCoordinate][playerMoves[*counter].verticalCoordinate] = playerMoves[*counter].numberBefore;			
+		}		
+		
 		return 0;
 	}
-	else
-	{
-		printf("Falsche Eingabe\n");
-		return 0;
-	}
+	printf("Falsche Eingabe\n");
+	return 0;
 }
 
+//Überprüfen ob eine Zahl zwischen 1 und 9 ist
 int CheckInputNumberIsValid(int number)
 {
 	switch (number)
@@ -70,7 +76,9 @@ int CheckInputNumberIsValid(int number)
 
 //Überprüft was der Spieler eingegeben hat und welche Aktion gemacht werden soll
 int CheckUserInput(int sudokuPlayer[sudokuWidth][sudokuLength], int horizontalCoordinate, int verticalCoordinate,
-	int fieldsRemoved[sudokuWidth][sudokuLength], int number, int sudokuSolved[sudokuLength][sudokuWidth])
+                   int fieldsRemoved[sudokuWidth][sudokuLength], int number,
+                   int sudokuSolved[sudokuLength][sudokuWidth], int* counter,
+                   struct PlayerMove playerMoves[arrayLength])
 {
 	//Eingabe 00 0 -> Ergebnis Prüfen
 	//Eingabe 00 1 -> Lösung anzeigen
@@ -78,30 +86,31 @@ int CheckUserInput(int sudokuPlayer[sudokuWidth][sudokuLength], int horizontalCo
 	//Eingabe 00 3 -> Spiel beenden
 	//Eingabe 00 4 -> Letzten Zug rückgängig machen
 
-	//Muss noch geändert werden
 	if (horizontalCoordinate == 0 && verticalCoordinate == 0)
 	{
-		return CheckNumber(sudokuPlayer, number, sudokuSolved);
+		return CheckNumber(sudokuPlayer, number, sudokuSolved, counter, playerMoves, fieldsRemoved);
 	}
-	else if (fieldsRemoved[horizontalCoordinate - 1][verticalCoordinate] == 1 && CheckInputNumberIsValid(number) == 1)
+	if (fieldsRemoved[horizontalCoordinate - 1][verticalCoordinate] == 1 && CheckInputNumberIsValid(number) == 1)
 	{
+		struct PlayerMove move = { horizontalCoordinate-1, verticalCoordinate,sudokuPlayer[(horizontalCoordinate - 1)][verticalCoordinate], number };
+		playerMoves[*counter] = move;
+
+		int test = playerMoves[*counter].numberBefore;
+
 		sudokuPlayer[(horizontalCoordinate - 1)][verticalCoordinate] = number;
-		return 0;
 
-		//counter = ConvertCounter(counter, 1);
+		*counter = ConvertCounter(*counter, 1);
 
-		//struct PlayerMove move = { horizontalCoordinate, verticalCoordinate, number };
-		//playerMoves[counter] = move;
-	}
-	else
-	{
-		printf("Falsche Eingabe");
 		return 0;
 	}
+	printf("Falsche Eingabe\n");
+	return 0;
 }
 
 int UserInputActions(int sudokuPlayer[sudokuWidth][sudokuLength],
-	int fieldsRemoved[sudokuWidth][sudokuLength], int sudokuSolved[sudokuLength][sudokuWidth], char coordinatsUserInput[3], int number, int cancel)
+                     int fieldsRemoved[sudokuWidth][sudokuLength], int sudokuSolved[sudokuLength][sudokuWidth],
+                     char coordinatsUserInput[3],
+                     int number, int cancel, int* counter, struct PlayerMove playerMoves[9])
 {
 	int firstCoordinate = ConvertLetterToNumber(coordinatsUserInput[0]);
 	int secondCoordinate = ConvertLetterToNumber(coordinatsUserInput[1]);
@@ -111,31 +120,27 @@ int UserInputActions(int sudokuPlayer[sudokuWidth][sudokuLength],
 	}
 	else if (coordinatsUserInput[0] == '0' && coordinatsUserInput[1] == '0')
 	{
-		return CheckUserInput(sudokuPlayer, 0, 0, fieldsRemoved, number, sudokuSolved);
+		return CheckUserInput(sudokuPlayer, 0, 0, fieldsRemoved, number, sudokuSolved, counter, playerMoves);
 	}
 	else if (firstCoordinate == -1 && secondCoordinate != -1)
 	{
 		int verticalCoordinate = ConvertCharToInt(coordinatsUserInput[0]);
 		if (verticalCoordinate != -1)
 		{
-			return CheckUserInput(sudokuPlayer, verticalCoordinate, secondCoordinate, fieldsRemoved, number, sudokuSolved);
+			return CheckUserInput(sudokuPlayer, verticalCoordinate, secondCoordinate, fieldsRemoved, number,
+			                      sudokuSolved, counter, playerMoves);
 		}
-		else
-		{
-			printf("Falsche Eingabe\n");
-		}
+		printf("Falsche Eingabe\n");
 	}
 	else if (firstCoordinate != 1 && secondCoordinate == -1)
 	{
 		int verticalCoordinate = ConvertCharToInt(coordinatsUserInput[1]);
 		if (verticalCoordinate != -1)
 		{
-			return CheckUserInput(sudokuPlayer, verticalCoordinate, firstCoordinate, fieldsRemoved, number, sudokuSolved);
+			return CheckUserInput(sudokuPlayer, verticalCoordinate, firstCoordinate, fieldsRemoved, number,
+			                      sudokuSolved, counter, playerMoves);
 		}
-		else
-		{
-			printf("Falsche Eingabe\n");
-		}
+		printf("Falsche Eingabe\n");
 	}
 	else
 	{

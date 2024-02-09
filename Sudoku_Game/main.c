@@ -6,13 +6,6 @@
 
 #define extern "C";
 
-struct PlayerMove
-{
-	int horisontal;
-	int vertical;
-	int number;
-};
-
 //Ausgabe der Regeln eines Sudokus
 void PrintRules()
 {
@@ -90,9 +83,7 @@ int main()
 		//Konsole clearen. Geht nur unter Windows
 		system("cls");
 
-		cancel = UserInputActions(sudokuPlayer, fieldsRemoved, sudokuSolved, coordinatsUserInput, number, cancel);
-
-
+		cancel = UserInputActions(sudokuPlayer, fieldsRemoved, sudokuSolved, coordinatsUserInput, number, cancel, &counter, playerMoves);
 	}
 
 	return 0;

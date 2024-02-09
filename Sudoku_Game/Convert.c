@@ -61,24 +61,15 @@ int ConvertCounter(int counter, int direction)
 {
 	if (direction == 1)
 	{
-		if (counter +1 == 10)
+		if (counter + 1 == 10)
 		{
 			return 0;
 		}
-		else
-		{
-			return counter + 1;
-		}
+		return counter + 1;
 	}
-	else
+	if (counter == 0)
 	{
-		if (counter  == 0)
-		{
-			return 9;
-		}
-		else
-		{
-			return counter - 1;
-		}
+		return 8;
 	}
+	return counter - 1;
 }
