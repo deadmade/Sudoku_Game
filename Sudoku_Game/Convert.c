@@ -1,6 +1,6 @@
 #include <ctype.h>
 
-int ConvertChartoInt(int character)
+int ConvertCharToInt(int character)
 {
 	switch (character)
 	{

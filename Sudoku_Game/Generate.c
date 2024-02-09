@@ -12,7 +12,7 @@ void RemoveNumberSudoku(int sudoku[sudokuWidth][sudokuLength], int fieldsRemoved
 	if (sudoku[randomNumberWidth][randomNumberLength] != 0)
 	{
 		fieldsRemoved[randomNumberWidth][randomNumberLength] = 1;
-		sudoku[randomNumberWidth][randomNumberLength] = 0;
+		sudoku[randomNumberWidth][randomNumberLength] = -1;
 	}
 	else
 	{

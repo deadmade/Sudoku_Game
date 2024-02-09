@@ -20,18 +20,7 @@ void PrintRules()
 	printf("Wie lautet dein Vorname:");
 }
 
-//Initial Methode um zu Überprüfen ob der Spieler gewonnen hat
-int CheckWinner(int sudoku[sudokuWidth][sudokuLength])
-{
-	int check = CheckSudoku(sudoku);
-	if (check == 1)
-	{
-		printf("Hervorragend. Sie haben das Kuchentastische Sudoku geloest.");
-		return 1;
-	}
-	printf("Dumm Dumm Dumm. Sie haben was falsch gemacht");
-	return 0;
-}
+
 
 //Bereitet das Spiel vor. Generiert das Sudoku, gibt die Regeln aus, fragt nach dem Namen des Spielers und nach der Schwierigkeit
 void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fieldsRemoved[sudokuWidth][sudokuLength],
@@ -49,6 +38,8 @@ void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int f
 	}
 	RemoveNumbersSudoku(sudoku, numbersInvisible, fieldsRemoved);
 }
+
+
 
 int main()
 {
@@ -68,41 +59,25 @@ int main()
 	PrepeareGame(sudokuPlayer, namePlayer, fieldsRemoved, sudokuSolved);
 
 
-	while (cancel == 0)
+	while (cancel != 1)
 	{
 		printSudoku(sudokuPlayer, namePlayer, fieldsRemoved);
 		int horisontal = 0;
-		char vertical = ' ';
+		char coordinatsUserInput[3];
 		int number = 0;
 
 		printf("Bitte geben sie etwas ein:");
 		char trash[80];
-		while (0 == scanf_s("%1d %1c %1d", &horisontal, &vertical, sizeof(vertical), &number) == 3)
+		while (0 == scanf_s("%2s %1d",coordinatsUserInput, (unsigned)_countof(coordinatsUserInput), &number))
 		{
 			fgets(trash, 80, stdin);
 			printf("Bitte geben sie etwas ein:");
 		}
 
-		int verticalNumber = ConvertLetterToNumber(vertical);
+		UserInputActions(sudokuPlayer, fieldsRemoved, sudokuSolved, coordinatsUserInput, number, cancel);
 
-		//Bedingung ob das Spiel gechekt wird, ob der Spieler gewonnen hat
-		if (horisontal == 0 && verticalNumber == -1)
-		{
-			cancel = CheckWinner(sudokuPlayer);
-		}
-		//TODO Check UserInput :(
-		//Überprüfung ob der User das Feld bearbeiten kann
-		else if (fieldsRemoved[horisontal-1][verticalNumber] == 1)
-		{
-			sudokuPlayer[(horisontal - 1)][verticalNumber] = number;
-
-			counter = ConvertCounter(counter, 1);
-
-			struct PlayerMove move = { horisontal, verticalNumber, number };
-			playerMoves[counter] = move;
-		}
 		//Konsole clearen. Geht nur unter Windows
-		system("cls");
+		//system("cls");
 
 		
 	}

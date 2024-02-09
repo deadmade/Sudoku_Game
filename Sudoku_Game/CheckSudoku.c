@@ -4,12 +4,16 @@
 //Überprüft einen Array ob doppelte Zahlen vorhanden sind(nur von 1-9)
 int checkArray(const int toCheck[9])
 {
-	int rightArray[arrayLength] = numberArray;
+	int rightArray[arrayLength] = numberArrayWithoutZero;
 	for (int i = 0; i < arrayLength; ++i)
 	{
 		int counter = 0;
 		for (int j = 0; j < 9; ++j)
 		{
+			if (toCheck[j] == -1)
+			{
+				return 0;
+			}
 			if (toCheck[j] == rightArray[i])
 			{
 				counter = counter + 1;
