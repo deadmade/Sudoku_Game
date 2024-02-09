@@ -33,6 +33,9 @@
     <ClCompile Include="GetInput.c">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="UserInputActions.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="anyproject.h">

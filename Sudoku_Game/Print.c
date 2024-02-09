@@ -55,7 +55,7 @@ void printSudoku(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fi
 				printWhite();
 			}
 			//Feld welches vom Spieler bearbeitet wurde
-			else if (sudoku[i - 1][j] != 0 && fieldsRemoved[i - 1][j] == 1)
+			else if (sudoku[i - 1][j] != -1 && fieldsRemoved[i - 1][j] == 1)
 			{
 				printRed();
 				printf("%d ", sudoku[i - 1][j]);
@@ -64,7 +64,7 @@ void printSudoku(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fi
 			//Noch leeres Feld
 			else
 			{
-				printf("0 ");
+				printf("  ");
 			}
 
 			if ((j + 1) % 3 == 0)
