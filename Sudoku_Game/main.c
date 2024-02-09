@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "anyproject.h"
 
 #define extern "C";
@@ -20,7 +22,17 @@ void PrintRules()
 	printf("Wie lautet dein Vorname:");
 }
 
-
+//Kopiert einen 2D Array in einen anderen 2D Array
+void copy2DArray(int dest[sudokuWidth][sudokuLength], int src[sudokuWidth][sudokuLength])
+{
+	for (int i = 0; i < sudokuWidth; i++)
+	{
+		for (int j = 0; j < sudokuLength; j++)
+		{
+			dest[i][j] = src[i][j];
+		}
+	}
+}
 
 //Bereitet das Spiel vor. Generiert das Sudoku, gibt die Regeln aus, fragt nach dem Namen des Spielers und nach der Schwierigkeit
 void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fieldsRemoved[sudokuWidth][sudokuLength],
@@ -28,7 +40,7 @@ void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int f
 {
 	int numbersInvisible = 0;
 	GenerateSudoku(sudoku);
-	sudokuSolved = sudoku;
+	copy2DArray(sudokuSolved, sudoku);
 	PrintRules();
 	GetSurname(namePlayer);
 	numbersInvisible = GetDifficulty();
@@ -38,8 +50,6 @@ void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int f
 	}
 	RemoveNumbersSudoku(sudoku, numbersInvisible, fieldsRemoved);
 }
-
-
 
 int main()
 {
@@ -58,28 +68,32 @@ int main()
 
 	PrepeareGame(sudokuPlayer, namePlayer, fieldsRemoved, sudokuSolved);
 
-
 	while (cancel != 1)
 	{
-		printSudoku(sudokuPlayer, namePlayer, fieldsRemoved);
+		if (cancel != 2)
+		{
+			printSudoku(sudokuPlayer, namePlayer, fieldsRemoved);
+		}
+
 		int horisontal = 0;
 		char coordinatsUserInput[3];
 		int number = 0;
 
 		printf("Bitte geben sie etwas ein:");
 		char trash[80];
-		while (0 == scanf_s("%2s %1d",coordinatsUserInput, (unsigned)_countof(coordinatsUserInput), &number))
+		while (0 == scanf_s("%2s %1d", coordinatsUserInput, (unsigned)_countof(coordinatsUserInput), &number))
 		{
 			fgets(trash, 80, stdin);
 			printf("Bitte geben sie etwas ein:");
 		}
 
-		UserInputActions(sudokuPlayer, fieldsRemoved, sudokuSolved, coordinatsUserInput, number, cancel);
-
 		//Konsole clearen. Geht nur unter Windows
-		//system("cls");
+		system("cls");
 
-		
+		cancel = UserInputActions(sudokuPlayer, fieldsRemoved, sudokuSolved, coordinatsUserInput, number, cancel);
+
+
 	}
+
 	return 0;
 }

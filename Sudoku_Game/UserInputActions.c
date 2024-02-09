@@ -15,24 +15,26 @@ int CheckWinner(int sudoku[sudokuWidth][sudokuLength])
 }
 
 //Macht Speziall Zeig wenn Koordinatne 0 0 eingegeben wird
-int CheckNumber(int sudokuPlayer[sudokuWidth][sudokuLength], int fieldsRemoved[sudokuWidth][sudokuLength], int number, int sudokuSolved[sudokuLength][sudokuWidth])
+int CheckNumber(int sudokuPlayer[sudokuWidth][sudokuLength], int number, int sudokuSolved[sudokuLength][sudokuWidth])
 {
+	int fieldsRemoved[sudokuWidth][sudokuLength] = { 0 };
+
 	if (number == 0)
 	{
 		return CheckWinner(sudokuPlayer);
 	}
 	else if (number == 1)
 	{
-		printSudoku(sudokuSolved, "Mr. Cheater", fieldsRemoved);
+		printSudoku(sudokuSolved, "du Cheater", fieldsRemoved);
 		return 2;
 	}
 	else if (number == 2)
-	{
-		printSudoku(sudokuPlayer, "Mr. Cheater", fieldsRemoved);
+	{		
 		return 0;
 	}
 	else if (number == 3)
 	{
+		printf("Bye Bye du Pisser");
 		return 1;
 	}
 	else if (number == 4)
@@ -42,7 +44,7 @@ int CheckNumber(int sudokuPlayer[sudokuWidth][sudokuLength], int fieldsRemoved[s
 	}
 	else
 	{
-		printf("Falsche Eingabe");
+		printf("Falsche Eingabe\n");
 		return 0;
 	}
 }
@@ -79,7 +81,7 @@ int CheckUserInput(int sudokuPlayer[sudokuWidth][sudokuLength], int horizontalCo
 	//Muss noch geändert werden
 	if (horizontalCoordinate == 0 && verticalCoordinate == 0)
 	{
-		return CheckNumber(sudokuPlayer, fieldsRemoved, number, sudokuSolved);
+		return CheckNumber(sudokuPlayer, number, sudokuSolved);
 	}
 	else if (fieldsRemoved[horizontalCoordinate - 1][verticalCoordinate] == 1 && CheckInputNumberIsValid(number) == 1)
 	{
@@ -105,7 +107,7 @@ int UserInputActions(int sudokuPlayer[sudokuWidth][sudokuLength],
 	int secondCoordinate = ConvertLetterToNumber(coordinatsUserInput[1]);
 	if (cancel == 2 && coordinatsUserInput[0] != '0' && coordinatsUserInput[1] != '0')
 	{
-		printf("Blende die Lösung zuerst aus, dann kannst du weiter machen!\n");
+		printf("Blende die Loesung zuerst aus, dann kannst du weiter machen!\n");
 	}
 	else if (coordinatsUserInput[0] == '0' && coordinatsUserInput[1] == '0')
 	{
