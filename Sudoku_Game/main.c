@@ -1,19 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "anyproject.h"
 
 #define extern "C";
-
-//Ausgabe der Regeln eines Sudokus
-void PrintRules()
-{
-	printf("Willkommen zum Kuchtastsichen Sudoku \n");
-	printf("Die Spielregeln sind wie folgt: \n");
-	printf("In jeder Zeile, Spalte und 3x3 darf nur einmal die Zahlen 1-9 vorkommen\n");
-	printf("Wie lautet dein Vorname:");
-}
 
 //Kopiert einen 2D Array in einen anderen 2D Array
 void copy2DArray(int dest[sudokuWidth][sudokuLength], int src[sudokuWidth][sudokuLength])
@@ -31,8 +23,19 @@ void copy2DArray(int dest[sudokuWidth][sudokuLength], int src[sudokuWidth][sudok
 void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fieldsRemoved[sudokuWidth][sudokuLength],
                   int sudokuSolved[sudokuWidth][sudokuLength])
 {
+	clock_t start, end;
+	double timeTaken;
+	start = clock();
+
+
+
 	int numbersInvisible = 0;
 	GenerateSudoku(sudoku);
+
+	end = clock();
+	timeTaken = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+
 	copy2DArray(sudokuSolved, sudoku);
 	PrintRules();
 	GetSurname(namePlayer);
@@ -83,7 +86,8 @@ int main()
 		//Konsole clearen. Geht nur unter Windows
 		system("cls");
 
-		cancel = UserInputActions(sudokuPlayer, fieldsRemoved, sudokuSolved, coordinatsUserInput, number, cancel, &counter, playerMoves);
+		cancel = UserInputActions(sudokuPlayer, fieldsRemoved, sudokuSolved, coordinatsUserInput, number, cancel,
+		                          &counter, playerMoves);
 	}
 
 	return 0;
