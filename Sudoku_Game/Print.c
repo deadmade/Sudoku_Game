@@ -25,11 +25,32 @@ void printRed()
 	printf("%s", KRED);
 }
 
+//Gibt die Regeln für die Eingabe des Spielers aus
+void PrintUserInputActionRules()
+{
+	printf("\nEingabe 00 0 -> Ergebnis Pruefen\n");
+	printf("Eingabe 00 1 -> Loesung anzeigen\n");
+	printf("Eingabe 00 2 -> Loesung nicht mehr anzeigen\n");
+	printf("Eingabe 00 3 -> Spiel beenden\n");
+	printf("Eingabe 00 4 -> Letzten Zug rueckgaengig machen\n\n");
+}
+
+
+//Ausgabe der Regeln eines Sudokus
+void PrintRules()
+{
+	printf("Willkommen zum Kuchtastsichen Sudoku \n");
+	printf("Die Spielregeln sind wie folgt: \n");
+	printf("In jeder Zeile, Spalte und 3x3 darf nur einmal die Zahlen 1-9 vorkommen\n");
+	printf("Wie lautet dein Vorname:");
+}
 
 //Gibt das Sudoku aus
 void printSudoku(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fieldsRemoved[sudokuWidth][sudokuLength])
 {
 	printf("Willkommen %s  \n", namePlayer);
+
+	PrintUserInputActionRules();
 
 	printBlue();
 	printf("    A B C   D E F   G H I\n");
@@ -64,7 +85,7 @@ void printSudoku(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fi
 			//Noch leeres Feld
 			else
 			{
-				printf("  ");
+				printf("* ");
 			}
 
 			if ((j + 1) % 3 == 0)
@@ -77,3 +98,7 @@ void printSudoku(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fi
 		}
 	}
 }
+
+
+
+	

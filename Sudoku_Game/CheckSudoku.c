@@ -1,7 +1,6 @@
 #include "anyproject.h"
-#define extern "C";
 
-//Überprüft einen Array ob doppelte Zahlen vorhanden sind(nur von 1-9)
+//Überprüft einen Array, ob doppelte Zahlen vorhanden sind.(nur von 1 bis 9)
 int checkArray(const int toCheck[9])
 {
 	int rightArray[arrayLength] = numberArrayWithoutZero;
@@ -54,7 +53,7 @@ int CheckRow(int sudoku[sudokuWidth][sudokuLength], int row)
 //Überprüft ein 3x3 Feld des Sudokus ob dieses Doppelte Zahlen enthält
 int CheckBox(int sudoku[sudokuWidth][sudokuLength], int boxX, int boxY)
 {
-	int arrayToCheck[arrayLength] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+	int arrayToCheck[arrayLength] = zeroArray;
 	int counter = 0;
 	for (int i = 0; i < (sudokuLength / 3); ++i)
 	{

@@ -34,6 +34,7 @@ int UserInputActions(int sudokuPlayer[sudokuWidth][sudokuLength],
                      int fieldsRemoved[sudokuWidth][sudokuLength], int sudokuSolved[sudokuLength][sudokuWidth],
                      char coordinatsUserInput[3],
                      int number, int cancel, int* counter, struct PlayerMove playerMoves[9]);
+void PrintRules();
 
 struct PlayerMove
 {

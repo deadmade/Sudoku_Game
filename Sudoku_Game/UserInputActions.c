@@ -15,42 +15,46 @@ int CheckWinner(int sudoku[sudokuWidth][sudokuLength])
 }
 
 //Macht Speziall Zeig wenn Koordinatne 0 0 eingegeben wird
-int CheckNumber(int sudokuPlayer[sudokuWidth][sudokuLength], int number, int sudokuSolved[sudokuLength][sudokuWidth], int* counter,
-	struct PlayerMove playerMoves[arrayLength], int fieldsRemoved[sudokuWidth][sudokuLength])
+int CheckNumber(int sudokuPlayer[sudokuWidth][sudokuLength], int number, int sudokuSolved[sudokuLength][sudokuWidth],
+                int* counter,
+                struct PlayerMove playerMoves[arrayLength], int fieldsRemoved[sudokuWidth][sudokuLength])
 {
-	
-
 	if (number == 0)
 	{
 		return CheckWinner(sudokuPlayer);
 	}
-	if (number == 1)
+	else if (number == 1)
 	{
 		//Benötigt um die Lösung zu zeigen. Sonst sehr komsich
-		int nothing[sudokuWidth][sudokuLength] = { 0 };
-		printSudoku(sudokuSolved, "du Cheater", nothing );
+		int nothing[sudokuWidth][sudokuLength] = {0};
+		printSudoku(sudokuSolved, "du Cheater", nothing);
 		return 2;
 	}
-	if (number == 2)
+	else if (number == 2)
 	{
 		return 0;
 	}
-	if (number == 3)
+	else if (number == 3)
 	{
 		printf("Bye Bye du Pisser");
 		return 1;
 	}
-	if (number == 4)
+	else if (number == 4)
 	{
 		*counter = ConvertCounter(*counter, 0);
 		if (fieldsRemoved[playerMoves[*counter].horizontalCoordinate][playerMoves[*counter].verticalCoordinate] == 1)
 		{
-			sudokuPlayer[playerMoves[*counter].horizontalCoordinate][playerMoves[*counter].verticalCoordinate] = playerMoves[*counter].numberBefore;			
-		}		
-		
+			sudokuPlayer[playerMoves[*counter].horizontalCoordinate][playerMoves[*counter].verticalCoordinate] =
+				playerMoves[*counter].numberBefore;
+		}
+
 		return 0;
 	}
-	printf("Falsche Eingabe\n");
+	else
+	{
+		printf("Falsche Eingabe\n");
+	}
+	
 	return 0;
 }
 
@@ -92,10 +96,11 @@ int CheckUserInput(int sudokuPlayer[sudokuWidth][sudokuLength], int horizontalCo
 	}
 	if (fieldsRemoved[horizontalCoordinate - 1][verticalCoordinate] == 1 && CheckInputNumberIsValid(number) == 1)
 	{
-		struct PlayerMove move = { horizontalCoordinate-1, verticalCoordinate,sudokuPlayer[(horizontalCoordinate - 1)][verticalCoordinate], number };
+		struct PlayerMove move = {
+			horizontalCoordinate - 1, verticalCoordinate, sudokuPlayer[(horizontalCoordinate - 1)][verticalCoordinate],
+			number
+		};
 		playerMoves[*counter] = move;
-
-		int test = playerMoves[*counter].numberBefore;
 
 		sudokuPlayer[(horizontalCoordinate - 1)][verticalCoordinate] = number;
 
