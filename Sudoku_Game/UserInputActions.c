@@ -102,8 +102,6 @@ int CheckUserInput(int sudokuPlayer[sudokuWidth][sudokuLength], int horizontalCo
 		};
 		playerMoves[*counter] = move;
 
-		int test = playerMoves[*counter].numberBefore;
-
 		sudokuPlayer[(horizontalCoordinate - 1)][verticalCoordinate] = number;
 
 		*counter = ConvertCounter(*counter, 1);

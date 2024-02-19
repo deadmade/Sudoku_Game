@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 
 #include "anyproject.h"
@@ -23,23 +22,27 @@ void copy2DArray(int dest[sudokuWidth][sudokuLength], int src[sudokuWidth][sudok
 void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int fieldsRemoved[sudokuWidth][sudokuLength],
                   int sudokuSolved[sudokuWidth][sudokuLength])
 {
+#ifdef _DEBUG
 	clock_t start, end;
 	double timeTaken;
 	start = clock();
+#endif
 
 
-
-	int numbersInvisible = 0;
 	GenerateSudoku(sudoku);
-
+#ifdef _DEBUG
 	end = clock();
 	timeTaken = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+	printf("Time taken to generate the sudoku: %f\n", timeTaken);
+#endif
+
 
 
 	copy2DArray(sudokuSolved, sudoku);
 	PrintRules();
 	GetSurname(namePlayer);
-	numbersInvisible = GetDifficulty();
+	int numbersInvisible = GetDifficulty();
 	while (numbersInvisible > 36 || numbersInvisible < 17)
 	{
 		numbersInvisible = GetDifficulty();
@@ -71,7 +74,6 @@ int main()
 			printSudoku(sudokuPlayer, namePlayer, fieldsRemoved);
 		}
 
-		int horisontal = 0;
 		char coordinatsUserInput[3];
 		int number = 0;
 

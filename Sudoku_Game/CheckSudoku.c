@@ -1,7 +1,6 @@
 #include "anyproject.h"
-#define extern "C";
 
-//Überprüft einen Array ob doppelte Zahlen vorhanden sind(nur von 1-9)
+//Überprüft einen Array, ob doppelte Zahlen vorhanden sind.(nur von 1 bis 9)
 int checkArray(const int toCheck[9])
 {
 	int rightArray[arrayLength] = numberArrayWithoutZero;

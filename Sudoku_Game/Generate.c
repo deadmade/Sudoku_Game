@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "anyproject.h"
 #include <time.h>
@@ -31,11 +30,11 @@ void RemoveNumbersSudoku(int sudoku[sudokuWidth][sudokuLength], int amount,
 }
 
 //Ganze Zeile im Sudoku löschen(durch 0 ersetzen)
-void deleteLine(int sudoku[sudokuWidth][sudokuLength], int line)
+void deleteLine(int sudoku[sudokuWidth][sudokuLength], int line, int amountDeletedNumbers, int j)
 {
-	for (int k = 0; k < sudokuWidth; k++)
+	for (int i = 0; i <= amountDeletedNumbers; i++)
 	{
-		sudoku[line][k] = 0;
+		sudoku[line][(j-i)] = 0;
 	}
 }
 
@@ -54,6 +53,7 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 
 	for (int i = 0; i < sudokuWidth; i++)
 	{
+		int amountDeletedNumbers = 1;
 		for (int j = 0; j < sudokuLength; j++)
 		{
 			int numbers[9] = {0};
@@ -63,11 +63,12 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 			{
 				if (count >= 9)
 				{
+					deleteLine(sudoku, i, amountDeletedNumbers, j);
 					check = 1;
-					j = 0;
+					j = j-1;
 					count = 0;
-					deleteLine(sudoku, i);
 					clearLine(numbers);
+					amountDeletedNumbers++;
 				}
 
 				int randomNumber = rand() % 9 + 1;
