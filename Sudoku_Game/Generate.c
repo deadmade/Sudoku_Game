@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "anyproject.h"
 #include <time.h>
@@ -63,9 +64,14 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 			{
 				if (count >= 9)
 				{
-					deleteLine(sudoku, i, amountDeletedNumbers, j);
+					
 					check = 1;
-					j = j-1;
+					if (amountDeletedNumbers > 9)
+					{
+						amountDeletedNumbers = 1;
+					}
+					deleteLine(sudoku, i, amountDeletedNumbers, j);
+					j = j-amountDeletedNumbers;
 					count = 0;
 					clearLine(numbers);
 					amountDeletedNumbers++;
@@ -76,7 +82,7 @@ void GenerateSudoku(int sudoku[sudokuWidth][sudokuLength])
 				if (numbers[randomNumber - 1] == 0) {
 					numbers[randomNumber - 1] = 1;
 					sudoku[i][j] = randomNumber;
-					check = CheckSudoku(sudoku);
+					check = CheckSudoku(sudoku);			
 					count++;
 				}				
 			}

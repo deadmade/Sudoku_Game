@@ -34,7 +34,10 @@ void PrepeareGame(int sudoku[sudokuWidth][sudokuLength], char* namePlayer, int f
 	end = clock();
 	timeTaken = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-	printf("Time taken to generate the sudoku: %f\n", timeTaken);
+	printf("Zeit für die Erstellung des Sudoku: %f\n", timeTaken);
+
+	int nothing[9][9] = { 0 };
+	printSudoku(sudoku, "test", nothing);
 #endif
 
 
